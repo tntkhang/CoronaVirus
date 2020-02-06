@@ -1,4 +1,4 @@
-package com.tntkhang.coronavirus.network
+package com.tntkhang.coronavirus.models
 
 class ChartAttribute {
     var Mainland_China: Long? = null

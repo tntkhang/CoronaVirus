@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_stats">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.tntkhang.coronavirus.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:id="@+id/navigation_stats"
+        android:name="com.tntkhang.coronavirus.ui.stats.StatsFragment"
+        android:label="@string/title_stats"
         tools:layout="@layout/fragment_stats" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.tntkhang.coronavirus.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_map"
+        android:name="com.tntkhang.coronavirus.ui.map.MapFragment"
+        android:label="@string/title_map"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.tntkhang.coronavirus.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_chart"
+        android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"
+        android:label="@string/title_chart"
+        tools:layout="@layout/fragment_chart" />
+
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"
+        android:label="@string/title_chart"
         tools:layout="@layout/fragment_chart" />
 </navigation>

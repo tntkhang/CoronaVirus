@@ -1,4 +1,4 @@
-package com.tntkhang.coronavirus.network
+package com.tntkhang.coronavirus.models
 
 class Feature {
     var attributes: Attribute? = null

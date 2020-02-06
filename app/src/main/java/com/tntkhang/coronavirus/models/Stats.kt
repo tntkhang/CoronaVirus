@@ -1,4 +1,4 @@
-package com.tntkhang.coronavirus.network
+package com.tntkhang.coronavirus.models
 
 class Stats {
     var features: List<Feature>? = null

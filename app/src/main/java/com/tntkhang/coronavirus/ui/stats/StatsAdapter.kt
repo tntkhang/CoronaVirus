@@ -1,20 +1,14 @@
-package com.tntkhang.coronavirus.ui.home
+package com.tntkhang.coronavirus.ui.stats
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tntkhang.coronavirus.R
-import com.tntkhang.coronavirus.network.Feature
+import com.tntkhang.coronavirus.models.Feature
 import kotlinx.android.synthetic.main.item_stats.view.*
 
 class StatsAdapter(var data: ArrayList<Feature>): RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
-
-    fun updateData(newData: ArrayList<Feature>) {
-        data.clear()
-        data.addAll(newData)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = StatsViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_stats, parent, false)

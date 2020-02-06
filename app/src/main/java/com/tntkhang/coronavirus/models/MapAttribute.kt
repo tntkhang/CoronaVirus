@@ -1,4 +1,4 @@
-package com.tntkhang.coronavirus.network
+package com.tntkhang.coronavirus.models
 
 class MapAttribute {
     var Confirmed: Long = 0
