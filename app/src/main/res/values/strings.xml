@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CoronaVirus</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="country_region">Country</string>
+    <string name="confirmed_infected_main_view_label">Infected</string>
+    <string name="recovered_main_view_label">Recovered</string>
+    <string name="deaths_main_view_label">Deaths</string>
+</resources>
