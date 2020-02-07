@@ -14,6 +14,7 @@ import com.tntkhang.coronavirus.network.NetworkService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import khangtran.preferenceshelper.PrefHelper
 import kotlinx.android.synthetic.main.fragment_stats.*
 
 class StatsFragment : Fragment() {
@@ -72,6 +73,20 @@ class StatsFragment : Fragment() {
             recoveredCases+= it.attributes!!.Recovered
             deathCases+= it.attributes!!.Deaths
         }
+        val oldConfirm = PrefHelper.getIntVal("confirm", 0)
+        val oldRecovered = PrefHelper.getIntVal("recovered", 0)
+        val oldDeath = PrefHelper.getIntVal("deathed", 0)
+
+        val numberIncreaseConfirm = confirmCases - oldConfirm
+        val numberIncreaseRecovered = recoveredCases - oldRecovered
+        val numberIncreaseDeath = deathCases - oldDeath
+        tv_increase_confirmed.text = if (numberIncreaseConfirm >= 0) "+ $numberIncreaseConfirm" else "- $numberIncreaseConfirm"
+        tv_increase_recovered.text = if (numberIncreaseRecovered >= 0) "+ $numberIncreaseRecovered" else "- $numberIncreaseRecovered"
+        tv_increase_death.text = if (numberIncreaseDeath >= 0) "+ $numberIncreaseDeath" else "- $numberIncreaseDeath"
+
+        PrefHelper.setVal("confirm", confirmCases)
+        PrefHelper.setVal("recovered", recoveredCases)
+        PrefHelper.setVal("deathed", deathCases)
 
         total_confirmed.text = confirmCases.toString()
         total_recovered.text = recoveredCases.toString()

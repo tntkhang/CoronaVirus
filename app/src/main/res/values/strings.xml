@@ -8,4 +8,6 @@
     <string name="confirmed_infected_main_view_label">Infected</string>
     <string name="recovered_main_view_label">Recovered</string>
     <string name="deaths_main_view_label">Deaths</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="confirm_case">Confirm: %1$d.\nRecovered: %2$d.\nDeaths: %3$d.</string>
 </resources>

@@ -6,4 +6,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="infected">#ed484a</color>
+
+    <color name="red_less_than_10">#83FF6666</color>
+    <color name="red_10_100">#80FF0E0E</color>
+    <color name="red_over_100">#B9BD0D00</color>
 </resources>
