@@ -10,4 +10,7 @@
     <string name="deaths_main_view_label">Deaths</string>
     <string name="title_activity_maps">Map</string>
     <string name="confirm_case">Confirm: %1$d.\nRecovered: %2$d.\nDeaths: %3$d.</string>
+    <string name="title_info">Info</string>
+    <string name="title_remove_ads">Remove Ads</string>
+    <string name="pro_version">Pro Version</string>
 </resources>

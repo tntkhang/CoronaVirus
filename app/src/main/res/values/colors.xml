@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="primary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#EF6C00</color>
+    <color name="green">#15AC1F</color>
+    <color name="colorPrimaryDark">#D84315</color>
+    <color name="colorAccent">#00838F</color>
 
     <color name="infected">#ed484a</color>
 
     <color name="red_less_than_10">#83FF6666</color>
-    <color name="red_10_100">#80FF0E0E</color>
-    <color name="red_over_100">#B9BD0D00</color>
+    <color name="red_10_100">#80FD2F2F</color>
+    <color name="red_100_500">#80FF0E0E</color>
+    <color name="red_500_1000">#80E90000</color>
+    <color name="red_over_100">#99BD0D00</color>
 </resources>

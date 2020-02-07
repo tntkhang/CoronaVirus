@@ -28,18 +28,18 @@ interface NetworkService {
     companion object {
         private val logging: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
 
-        private fun createClient(context: Context): OkHttpClient {
+        private fun createClient(): OkHttpClient {
             return OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build()
         }
 
-        fun create(context: Context): NetworkService {
+        fun create(): NetworkService {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
-                .client(createClient(context))
+                .client(createClient())
                 .build()
 
             return retrofit.create(NetworkService::class.java)

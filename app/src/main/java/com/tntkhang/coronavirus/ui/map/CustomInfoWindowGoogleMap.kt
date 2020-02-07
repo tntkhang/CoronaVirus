@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.map_custom_infowindow.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CustomInfoWindowGoogleMap(val context: Context) : GoogleMap.InfoWindowAdapter {
+class CustomInfoWindowGoogleMap(val context: Context) : InfoWindowAdapter {
 
     override fun getInfoContents(p0: Marker?): View {
         var mInfoView = (context as Activity).layoutInflater.inflate(R.layout.map_custom_infowindow, null)

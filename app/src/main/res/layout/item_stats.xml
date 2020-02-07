@@ -39,7 +39,7 @@
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:text="0"
-                android:textColor="@color/primary" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:id="@+id/tv_death"

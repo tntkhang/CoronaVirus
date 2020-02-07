@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_stats.*
 
 class StatsFragment : Fragment() {
 
-    private val appService by lazy { NetworkService.create(context!!) }
+    private val appService by lazy { NetworkService.create() }
     private var disposable: Disposable? = null
     private var data = ArrayList<Feature>()
     private var statsAdapter = StatsAdapter(data)
@@ -42,10 +42,7 @@ class StatsFragment : Fragment() {
         swipe_refresh_layout.setOnRefreshListener {
             getStatsData()                    // refresh your list contents somehow
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
         getStatsData()
     }
 

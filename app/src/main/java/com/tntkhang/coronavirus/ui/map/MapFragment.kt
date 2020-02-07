@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private val appService by lazy { NetworkService.create(context!!) }
+    private val appService by lazy { NetworkService.create() }
     private var disposable: Disposable? = null
     private lateinit var mMap: GoogleMap
 
@@ -69,14 +69,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //                stat.attributes?.Confirmed!! in 10..99 -> R.drawable.zone_10_100
 //                else -> R.drawable.zone_over_100
 //            }
+
             val radius = when {
                 stat.attributes?.Confirmed!! < 10 -> 30000
                 stat.attributes?.Confirmed!! in 10..99 -> 60000
-                else -> 100000
+                stat.attributes?.Confirmed!! in 100..500 -> 90000
+                stat.attributes?.Confirmed!! in 500..1000 -> 120000
+                else -> 150000
             }
             val color = when {
                 stat.attributes?.Confirmed!! < 10 -> ContextCompat.getColor(context!!, R.color.red_less_than_10)
                 stat.attributes?.Confirmed!! in 10..99 -> ContextCompat.getColor(context!!, R.color.red_10_100)
+                stat.attributes?.Confirmed!! in 100..500 -> ContextCompat.getColor(context!!, R.color.red_10_100)
+                stat.attributes?.Confirmed!! in 500..1000 -> ContextCompat.getColor(context!!, R.color.red_10_100)
                 else -> ContextCompat.getColor(context!!, R.color.red_over_100)
             }
 
@@ -86,28 +91,28 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
 
 
-            val customInfoWindow = CustomInfoWindowGoogleMap(context!!)
-            mMap.setInfoWindowAdapter(customInfoWindow)
-
-            val marker = mMap.addCircle(
+//            val customInfoWindow = CustomInfoWindowGoogleMap(context!!)
+//            mMap.setInfoWindowAdapter(customInfoWindow)
+//
+            val marker2 = mMap.addCircle(
                 CircleOptions()
                     .center(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
                     .radius(radius.toDouble())
                     .fillColor(color)
                     .strokeColor(color)
+                    .clickable(true)
+                    .strokeWidth(2f)
             )
 
-            marker.tag = stat
-//            marker.showInfoWindow()
-
-//            mMap.addMarker(
+//            val marker =mMap.addMarker(
 //                MarkerOptions()
 //                    .position(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
 //                    .title(title)
 //                    .snippet(snippetValue)
 //                    .icon(getBitmap(bitmapId)))
-
-//            Log.i("QWEASD", "$title - $snippetValue - ${stat.attributes?.Lat!!.toDouble()} - ${stat.attributes?.Long_!!.toDouble()}")
+//
+//            marker.tag = stat.attributes
+//            marker.showInfoWindow()
         }
     }
     override fun onMapReady(googleMap: GoogleMap) {

@@ -28,4 +28,9 @@
         android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"
         android:label="@string/title_chart"
         tools:layout="@layout/fragment_chart" />
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="com.tntkhang.coronavirus.ui.info.InfoFragment"
+        android:label="@string/title_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>
