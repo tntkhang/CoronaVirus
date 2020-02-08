@@ -23,11 +23,11 @@
         android:label="@string/title_chart"
         tools:layout="@layout/fragment_chart" />
 
-    <fragment
-        android:id="@+id/navigation_news"
-        android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"
-        android:label="@string/title_chart"
-        tools:layout="@layout/fragment_chart" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_news"-->
+<!--        android:name="com.tntkhang.coronavirus.ui.news.NewsFragment"-->
+<!--        android:label="@string/title_news"-->
+<!--        tools:layout="@layout/fragment_news" />-->
     <fragment
         android:id="@+id/navigation_info"
         android:name="com.tntkhang.coronavirus.ui.info.InfoFragment"
