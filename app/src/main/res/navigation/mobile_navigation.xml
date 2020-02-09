@@ -17,11 +17,11 @@
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
-    <fragment
-        android:id="@+id/navigation_chart"
-        android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"
-        android:label="@string/title_chart"
-        tools:layout="@layout/fragment_chart" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_chart"-->
+<!--        android:name="com.tntkhang.coronavirus.ui.chart.ChartFragment"-->
+<!--        android:label="@string/title_chart"-->
+<!--        tools:layout="@layout/fragment_chart" />-->
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_news"-->

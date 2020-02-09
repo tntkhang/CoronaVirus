@@ -46,6 +46,21 @@ class StatsFragment : Fragment() {
         getStatsData()
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.e("QWEASD", "onStop")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.e("QWEASD", "onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("QWEASD", "onDestroy")
+    }
+
     private fun getStatsData() {
         disposable = appService.getStats()
             .subscribeOn(Schedulers.io())
@@ -70,25 +85,12 @@ class StatsFragment : Fragment() {
             recoveredCases+= it.attributes!!.Recovered
             deathCases+= it.attributes!!.Deaths
         }
-        val oldConfirm = PrefHelper.getIntVal("confirm", 0)
-        val oldRecovered = PrefHelper.getIntVal("recovered", 0)
-        val oldDeath = PrefHelper.getIntVal("deathed", 0)
 
-        val numberIncreaseConfirm = confirmCases - oldConfirm
-        val numberIncreaseRecovered = recoveredCases - oldRecovered
-        val numberIncreaseDeath = deathCases - oldDeath
-        tv_increase_confirmed.text = if (numberIncreaseConfirm >= 0) "+ $numberIncreaseConfirm" else "- $numberIncreaseConfirm"
-        tv_increase_recovered.text = if (numberIncreaseRecovered >= 0) "+ $numberIncreaseRecovered" else "- $numberIncreaseRecovered"
-        tv_increase_death.text = if (numberIncreaseDeath >= 0) "+ $numberIncreaseDeath" else "- $numberIncreaseDeath"
-
-        PrefHelper.setVal("confirm", confirmCases)
-        PrefHelper.setVal("recovered", recoveredCases)
-        PrefHelper.setVal("deathed", deathCases)
+        setNumberIncrease(confirmCases, recoveredCases, deathCases)
 
         total_confirmed.text = confirmCases.toString()
         total_recovered.text = recoveredCases.toString()
         total_deaths.text = deathCases.toString()
-
 
         val sortedList = stats.features!!.sortedByDescending{it.attributes!!.Confirmed}
         data.clear()
@@ -96,7 +98,23 @@ class StatsFragment : Fragment() {
 
         statsAdapter.notifyDataSetChanged()
 
-
         swipe_refresh_layout.isRefreshing = false
+    }
+
+    private fun setNumberIncrease(confirmCases: Int, recoveredCases: Int, deathCases: Int) {
+        val oldConfirm = PrefHelper.getIntVal("confirm", 0)
+        val oldRecovered = PrefHelper.getIntVal("recovered", 0)
+        val oldDeath = PrefHelper.getIntVal("deathed", 0)
+
+        val numberIncreaseConfirm = if (oldConfirm > 0) confirmCases - oldConfirm else 0
+        val numberIncreaseRecovered = if (oldRecovered > 0)  recoveredCases - oldRecovered else 0
+        val numberIncreaseDeath =  if (oldDeath > 0) deathCases - oldDeath else 0
+        tv_increase_confirmed.text = if (numberIncreaseConfirm >= 0) "+ $numberIncreaseConfirm" else "- $numberIncreaseConfirm"
+        tv_increase_recovered.text = if (numberIncreaseRecovered >= 0) "+ $numberIncreaseRecovered" else "- $numberIncreaseRecovered"
+        tv_increase_death.text = if (numberIncreaseDeath >= 0) "+ $numberIncreaseDeath" else "- $numberIncreaseDeath"
+
+        PrefHelper.setVal("confirm", confirmCases)
+        PrefHelper.setVal("recovered", recoveredCases)
+        PrefHelper.setVal("deathed", deathCases)
     }
 }

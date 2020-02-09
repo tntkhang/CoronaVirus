@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,16 +15,30 @@ import com.android.billingclient.api.SkuDetails
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tntkhang.billing.BillingHelper
+import com.tntkhang.coronavirus.ui.chart.ChartFragment
+import com.tntkhang.coronavirus.ui.info.InfoFragment
+import com.tntkhang.coronavirus.ui.map.MapFragment
+import com.tntkhang.coronavirus.ui.stats.StatsFragment
 import com.tntkhang.coronavirus.utils.Constants
 import khangtran.preferenceshelper.PrefHelper
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), BillingHelper.DonateClientListener  {
 
     private lateinit var billingHelper: BillingHelper
     private var menu: Menu? = null
     private var mInterstitialAd: InterstitialAd? = null
+
+    private val statsFragment = StatsFragment()
+    private val mapFragment = MapFragment()
+//    private val chartFragment = ChartFragment()
+    private val infoFragment = InfoFragment()
+
+    private val fragmentManager = supportFragmentManager
+    private var activeFragment: Fragment = statsFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +51,55 @@ class MainActivity : AppCompatActivity(), BillingHelper.DonateClientListener  {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_stats, R.id.navigation_map, R.id.navigation_chart,
+                R.id.navigation_stats, R.id.navigation_map,
+//                R.id.navigation_chart,
 //                R.id.navigation_news,
                 R.id.navigation_info
             )
         )
+
+        val navigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.navigation_stats -> {
+                        fragmentManager.beginTransaction().hide(activeFragment).show(statsFragment).commit()
+                        activeFragment = statsFragment
+                        return@OnNavigationItemSelectedListener true
+                    }
+                    R.id.navigation_map -> {
+                        fragmentManager.beginTransaction().hide(activeFragment).show(mapFragment).commit()
+                        activeFragment = mapFragment
+                        return@OnNavigationItemSelectedListener true
+                    }
+//                    R.id.navigation_chart -> {
+//                        fragmentManager.beginTransaction().hide(activeFragment).show(chartFragment).commit()
+//                        activeFragment = chartFragment
+//                        return@OnNavigationItemSelectedListener true
+//                    }
+//                    R.id.navigation_news -> {
+//                        activeFragment?.let {
+//                            fragmentManager.beginTransaction().hide(it).show(statsFragment).commit()
+//                            activeFragment = statsFragment
+//                            return@OnNavigationItemSelectedListener true
+//                        }
+//                    }
+                    R.id.navigation_info -> {
+                        fragmentManager.beginTransaction().hide(activeFragment).show(infoFragment).commit()
+                        activeFragment = infoFragment
+                        return@OnNavigationItemSelectedListener true
+                    }
+                }
+                false
+            }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
+
+        fragmentManager.beginTransaction().add(R.id.nav_host_fragment, infoFragment, "3").hide(infoFragment).commit()
+//        fragmentManager.beginTransaction().add(R.id.nav_host_fragment, chartFragment, "2").hide(chartFragment).commit()
+        fragmentManager.beginTransaction().add(R.id.nav_host_fragment, mapFragment, "2").hide(mapFragment).commit()
+        fragmentManager.beginTransaction().add(R.id.nav_host_fragment, statsFragment, "1").commit()
+
         initBilling()
         initAds()
     }
@@ -54,6 +110,9 @@ class MainActivity : AppCompatActivity(), BillingHelper.DonateClientListener  {
             integrateFullscreenAdmob()
             integrateBannerAds()
         }
+
+
+        Log.i("tntkhang", "is isProVersion: $isProVersion")
     }
 
     private fun integrateFullscreenAdmob() {

@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_map"
         android:title="@string/title_map" />
 
-    <item
-        android:id="@+id/navigation_chart"
-        android:icon="@drawable/ic_chart"
-        android:title="@string/title_chart" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_chart"-->
+<!--        android:icon="@drawable/ic_chart"-->
+<!--        android:title="@string/title_chart" />-->
 <!--    <item-->
 <!--        android:id="@+id/navigation_news"-->
 <!--        android:icon="@drawable/ic_news"-->

@@ -4,6 +4,7 @@
     <color name="green">#15AC1F</color>
     <color name="colorPrimaryDark">#D84315</color>
     <color name="colorAccent">#00838F</color>
+    <color name="app_bg">#FFFFFF</color>
 
     <color name="infected">#ed484a</color>
 
