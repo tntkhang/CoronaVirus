@@ -39,7 +39,7 @@ class BillingHelper(
     }
 
     fun querySkuDetails() {
-        val skuList = listOf("gts_watch_face")
+        val skuList = listOf("remove_ads")
         val params = SkuDetailsParams.newBuilder()
             .setSkusList(skuList)
             .setType(INAPP)

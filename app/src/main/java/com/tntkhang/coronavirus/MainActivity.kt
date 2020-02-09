@@ -1,6 +1,7 @@
 package com.tntkhang.coronavirus
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,14 +12,20 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.billingclient.api.SkuDetails
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.tntkhang.billing.BillingHelper
 import com.tntkhang.coronavirus.utils.Constants
 import khangtran.preferenceshelper.PrefHelper
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BillingHelper.DonateClientListener  {
 
     private lateinit var billingHelper: BillingHelper
     private var menu: Menu? = null
+    private var mInterstitialAd: InterstitialAd? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +44,43 @@ class MainActivity : AppCompatActivity(), BillingHelper.DonateClientListener  {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-//        initBilling()
+        initBilling()
+        initAds()
+    }
+
+    private fun initAds() {
+        val isProVersion = PrefHelper.getBooleanVal(Constants.IS_PRO_ACTIVATED, false)
+        if (!isProVersion) {
+            integrateFullscreenAdmob()
+            integrateBannerAds()
+        }
+    }
+
+    private fun integrateFullscreenAdmob() {
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd?.adUnitId = BuildConfig.ADMOB_FULL_SCREEN_ID
+        loadFullScreenAds()
+    }
+    private fun loadFullScreenAds() {
+        mInterstitialAd?.loadAd(AdRequest.Builder().build())
+        mInterstitialAd?.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                mInterstitialAd?.show()
+                Log.i("tntkhang", "mInterstitialAd onAdLoaded success")
+            }
+
+            override fun onAdFailedToLoad(p0: Int) {
+                super.onAdFailedToLoad(p0)
+
+                Log.e("tntkhang", "mInterstitialAd onAdFailedToLoad $p0")
+            }
+        }
+    }
+
+    private fun integrateBannerAds() {
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun initBilling() {
