@@ -59,16 +59,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun onGetDataSuccess(stats: MapStats) {
         stats.features!!.forEach { stat ->
-//            val snippetValue = context?.getString(R.string.confirm_case,
-//                stat.attributes?.Confirmed,
-//                stat.attributes?.Recovered,
-//                stat.attributes?.Deaths)
-//
-//            val bitmapId = when {
-//                stat.attributes?.Confirmed!! < 10 -> R.drawable.zone_less_than_10
-//                stat.attributes?.Confirmed!! in 10..99 -> R.drawable.zone_10_100
-//                else -> R.drawable.zone_over_100
-//            }
 
             val radius = when {
                 stat.attributes?.Confirmed!! < 10 -> 30000
@@ -90,29 +80,41 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 title += it
             }
 
-
-//            val customInfoWindow = CustomInfoWindowGoogleMap(context!!)
-//            mMap.setInfoWindowAdapter(customInfoWindow)
 //
-            val marker2 = mMap.addCircle(
-                CircleOptions()
-                    .center(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
-                    .radius(radius.toDouble())
-                    .fillColor(color)
-                    .strokeColor(color)
-                    .clickable(true)
-                    .strokeWidth(2f)
-            )
+//            val marker2 = mMap.addCircle(
+//                CircleOptions()
+//                    .center(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
+//                    .radius(radius.toDouble())
+//                    .fillColor(color)
+//                    .strokeColor(color)
+//                    .clickable(true)
+//                    .strokeWidth(2f)
+//            )
 
-//            val marker =mMap.addMarker(
-//                MarkerOptions()
-//                    .position(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
-//                    .title(title)
-//                    .snippet(snippetValue)
-//                    .icon(getBitmap(bitmapId)))
-//
-//            marker.tag = stat.attributes
-//            marker.showInfoWindow()
+            val customInfoWindow = CustomInfoWindowGoogleMap(context!!)
+            mMap.setInfoWindowAdapter(customInfoWindow)
+            val snippetValue = context?.getString(R.string.confirm_case,
+                stat.attributes?.Confirmed,
+                stat.attributes?.Recovered,
+                stat.attributes?.Deaths)
+
+            val bitmapId = when {
+                stat.attributes?.Confirmed!! < 10 -> R.drawable.zone_less_than_10
+                stat.attributes?.Confirmed!! in 10..99 -> R.drawable.zone_10_100
+                stat.attributes?.Confirmed!! in 100..1000 -> R.drawable.zone_over_100
+                else -> R.drawable.zone_over_1000
+            }
+            val markerOption = MarkerOptions()
+                .position(LatLng(stat.attributes?.Lat!!.toDouble(), stat.attributes?.Long_!!.toDouble()))
+                .title(title)
+                .snippet(snippetValue)
+                .icon(getBitmap(bitmapId))
+                .anchor(0.5f, 0.5f)
+
+            val marker = mMap.addMarker(markerOption)
+
+            marker.tag = stat.attributes
+            marker.showInfoWindow()
         }
     }
     override fun onMapReady(googleMap: GoogleMap) {
